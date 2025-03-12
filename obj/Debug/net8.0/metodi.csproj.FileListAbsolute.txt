@@ -12,3 +12,4 @@ C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\refint\metodi.dll
 C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.pdb
 C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.genruntimeconfig.cache
 C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\ref\metodi.dll
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.sourcelink.json

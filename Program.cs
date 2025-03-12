@@ -4,12 +4,12 @@ class TransportProblem
 {
     public static (int[,], int) MinElementMethod(int[] supply, int[] demand, int[,] cost)
     {
-        int suppliers = supply.Length;
-        int consumers = demand.Length;
-        int[,] allocation = new int[suppliers, consumers];
-        int totalCost = 0;
+        int suppliers = supply.Length; //размер таблицы
+        int consumers = demand.Length; //Размер таблицы
+        int[,] allocation = new int[suppliers, consumers]; //матрица распределения перевозок
+        int totalCost = 0; //общая стоимость перевозок
 
-        while (true)
+        while (true) //Цикл выполняется пока есть незаполненные потребности и остатки товаров
         {
             int minCost = int.MaxValue;
             int minRow = -1, minCol = -1;
@@ -29,11 +29,11 @@ class TransportProblem
             }
 
             if (minRow == -1 || minCol == -1)
-                break; // Если не нашли минимальный элемент, завершаем
+                break; //При отсутствии доступных ячеек алгоритм завершает работу
 
-            int allocated = Math.Min(supply[minRow], demand[minCol]);
-            allocation[minRow, minCol] = allocated;
-            totalCost += allocated * cost[minRow, minCol];
+            int allocated = Math.Min(supply[minRow], demand[minCol]);  //принимает минимум из поставок и спроса
+            allocation[minRow, minCol] = allocated; //Обновление матрицу распределения
+            totalCost += allocated * cost[minRow, minCol]; //стоимость перевозки
 
             supply[minRow] -= allocated;
             demand[minCol] -= allocated;
@@ -41,6 +41,31 @@ class TransportProblem
 
         return (allocation, totalCost);
     }
+
+    public static (int[,], int) NorthWestCornerMethod(int[] supply, int[] demand, int[,] cost)
+    {
+        int suppliers = supply.Length;
+        int consumers = demand.Length;
+        int[,] allocation = new int[suppliers, consumers];
+        int totalCost = 0;
+
+        int i = 0, j = 0;
+        while (i < suppliers && j < consumers)
+        {
+            int allocated = Math.Min(supply[i], demand[j]);
+            allocation[i, j] = allocated;
+            totalCost += allocated * cost[i, j];
+
+            supply[i] -= allocated;
+            demand[j] -= allocated;
+
+            if (supply[i] == 0) i++;
+            if (demand[j] == 0) j++;
+        }
+
+        return (allocation, totalCost);
+    }
+
 
     static void Main()
     {
@@ -75,9 +100,19 @@ class TransportProblem
             }
         }
 
-        var (allocation, totalCost) = MinElementMethod(supply, demand, cost);
+        Console.WriteLine("Выберите метод решения:");
+        Console.WriteLine("1 - Метод минимального элемента");
+        Console.WriteLine("2 - Метод северо-западного угла");
+        int choice = int.Parse(Console.ReadLine());
 
-        //Вывод матрицы перевозок и общей стоимости
+        (int[,], int) result;
+        if (choice == 1)
+            result = MinElementMethod(supply, demand, cost);
+        else
+            result = NorthWestCornerMethod(supply, demand, cost);
+
+        var (allocation, totalCost) = result;
+
         Console.WriteLine("Распределение ресурсов:");
         for (int i = 0; i < allocation.GetLength(0); i++)
         {

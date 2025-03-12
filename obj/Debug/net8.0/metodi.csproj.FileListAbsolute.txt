@@ -1,0 +1,14 @@
+C:\Users\denis\source\repos\metodi\metodi\bin\Debug\net8.0\metodi.exe
+C:\Users\denis\source\repos\metodi\metodi\bin\Debug\net8.0\metodi.deps.json
+C:\Users\denis\source\repos\metodi\metodi\bin\Debug\net8.0\metodi.runtimeconfig.json
+C:\Users\denis\source\repos\metodi\metodi\bin\Debug\net8.0\metodi.dll
+C:\Users\denis\source\repos\metodi\metodi\bin\Debug\net8.0\metodi.pdb
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.AssemblyInfoInputs.cache
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.AssemblyInfo.cs
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.csproj.CoreCompileInputs.cache
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.dll
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\refint\metodi.dll
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.pdb
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\metodi.genruntimeconfig.cache
+C:\Users\denis\source\repos\metodi\metodi\obj\Debug\net8.0\ref\metodi.dll

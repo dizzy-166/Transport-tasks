@@ -4,17 +4,16 @@ class TransportProblem
 {
     public static (int[,], int) MinElementMethod(int[] supply, int[] demand, int[,] cost)
     {
-        int suppliers = supply.Length; //размер таблицы
-        int consumers = demand.Length; //Размер таблицы
-        int[,] allocation = new int[suppliers, consumers]; //матрица распределения перевозок
-        int totalCost = 0; //общая стоимость перевозок
+        int suppliers = supply.Length;
+        int consumers = demand.Length;
+        int[,] allocation = new int[suppliers, consumers];
+        int totalCost = 0;
 
-        while (true) //Цикл выполняется пока есть незаполненные потребности и остатки товаров
+        while (true)
         {
             int minCost = int.MaxValue;
             int minRow = -1, minCol = -1;
 
-            // Найти минимальный элемент в таблице тарифов
             for (int i = 0; i < suppliers; i++)
             {
                 for (int j = 0; j < consumers; j++)
@@ -29,11 +28,11 @@ class TransportProblem
             }
 
             if (minRow == -1 || minCol == -1)
-                break; //При отсутствии доступных ячеек алгоритм завершает работу
+                break;
 
-            int allocated = Math.Min(supply[minRow], demand[minCol]);  //принимает минимум из поставок и спроса
-            allocation[minRow, minCol] = allocated; //Обновление матрицу распределения
-            totalCost += allocated * cost[minRow, minCol]; //стоимость перевозки
+            int allocated = Math.Min(supply[minRow], demand[minCol]);
+            allocation[minRow, minCol] = allocated;
+            totalCost += allocated * cost[minRow, minCol];
 
             supply[minRow] -= allocated;
             demand[minCol] -= allocated;
@@ -66,30 +65,25 @@ class TransportProblem
         return (allocation, totalCost);
     }
 
-
     static void Main()
     {
-        //Количество поставщиков и потребителей
         Console.Write("Введите количество поставщиков: ");
         int suppliers = int.Parse(Console.ReadLine());
         Console.Write("Введите количество потребителей: ");
         int consumers = int.Parse(Console.ReadLine());
 
-        int[] supply = new int[suppliers]; //Поставки
-        int[] demand = new int[consumers]; //Спрос
+        int[] supply = new int[suppliers];
+        int[] demand = new int[consumers];
+        int[,] cost = new int[suppliers, consumers];
 
-        //Заполнение массива поставок
         Console.WriteLine("Введите объемы поставок:");
         for (int i = 0; i < suppliers; i++)
             supply[i] = int.Parse(Console.ReadLine());
 
-        //Заполнение массива спроса
         Console.WriteLine("Введите объемы спроса:");
         for (int j = 0; j < consumers; j++)
             demand[j] = int.Parse(Console.ReadLine());
 
-        //Ввод тарифного плана
-        int[,] cost = new int[suppliers, consumers];
         Console.WriteLine("Введите тарифный план:");
         for (int i = 0; i < suppliers; i++)
         {
@@ -100,28 +94,28 @@ class TransportProblem
             }
         }
 
-        Console.WriteLine("Выберите метод решения:");
-        Console.WriteLine("1 - Метод минимального элемента");
-        Console.WriteLine("2 - Метод северо-западного угла");
-        int choice = int.Parse(Console.ReadLine());
-
-        (int[,], int) result;
-        if (choice == 1)
-            result = MinElementMethod(supply, demand, cost);
-        else
-            result = NorthWestCornerMethod(supply, demand, cost);
-
-        var (allocation, totalCost) = result;
-
-        Console.WriteLine("Распределение ресурсов:");
-        for (int i = 0; i < allocation.GetLength(0); i++)
+        var (allocationNW, totalCostNW) = NorthWestCornerMethod((int[])supply.Clone(), (int[])demand.Clone(), cost);
+        Console.WriteLine("Метод северо-западного угла:");
+        for (int i = 0; i < allocationNW.GetLength(0); i++)
         {
-            for (int j = 0; j < allocation.GetLength(1); j++)
+            for (int j = 0; j < allocationNW.GetLength(1); j++)
             {
-                Console.Write(allocation[i, j] + " ");
+                Console.Write(allocationNW[i, j] + " ");
             }
             Console.WriteLine();
         }
-        Console.WriteLine("Общая стоимость: " + totalCost);
+        Console.WriteLine("Общая стоимость (Метод северо-западного угла): " + totalCostNW);
+
+        var (allocationMin, totalCostMin) = MinElementMethod((int[])supply.Clone(), (int[])demand.Clone(), cost);
+        Console.WriteLine("Метод минимального элемента:");
+        for (int i = 0; i < allocationMin.GetLength(0); i++)
+        {
+            for (int j = 0; j < allocationMin.GetLength(1); j++)
+            {
+                Console.Write(allocationMin[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine("Общая стоимость (Метод минимального элемента): " + totalCostMin);
     }
 }

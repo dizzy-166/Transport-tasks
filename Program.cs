@@ -1,12 +1,11 @@
-﻿
-class TransportProblem
+﻿class TransportProblem
 {
     // Метод минимального элемента для решения транспортной задачи
-    public static (int[,], int) MinElementMethod(int[] supply, int[] demand, int[,] cost)
+    public static void MinElementMethod(int[] supply, int[] demand, int[,] cost)
     {
         int suppliers = supply.Length;   // Количество поставщиков
         int consumers = demand.Length;   // Количество потребителей
-        int[,] allocation = new int[suppliers, consumers]; // Матрица распределения грузов
+        int[,] allocation = new int[suppliers, consumers]; // Матрица распределения
         int totalCost = 0; // Общая стоимость перевозки
 
         while (true)
@@ -42,18 +41,28 @@ class TransportProblem
             demand[minCol] -= allocated;
         }
 
-        return (allocation, totalCost);
+        // Вывод результата
+        Console.WriteLine("Метод минимального элемента:");
+        for (int i = 0; i < allocation.GetLength(0); i++)
+        {
+            for (int j = 0; j < allocation.GetLength(1); j++)
+            {
+                Console.Write(allocation[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine("Общая стоимость: " + totalCost);
     }
 
     // Метод северо-западного угла для решения транспортной задачи
-    public static (int[,], int) NorthWestCornerMethod(int[] supply, int[] demand, int[,] cost)
+    public static void NorthWestCornerMethod(int[] supply, int[] demand, int[,] cost)
     {
         int suppliers = supply.Length;
         int consumers = demand.Length;
-        int[,] allocation = new int[suppliers, consumers]; // Матрица распределения грузов
+        int[,] allocation = new int[suppliers, consumers]; // Матрица распределения
         int totalCost = 0; // Общая стоимость перевозки
 
-        int i = 0, j = 0; // Начинаем с верхнего левого угла
+        int i = 0, j = 0; // С верхнего левого угла
         while (i < suppliers && j < consumers)
         {
             // Определяем, сколько можно поставить в текущую ячейку
@@ -71,7 +80,17 @@ class TransportProblem
             if (demand[j] == 0) j++;
         }
 
-        return (allocation, totalCost);
+        // Вывод результата
+        Console.WriteLine("Метод северо-западного угла:");
+        for (int i2 = 0; i2 < allocation.GetLength(0); i2++)
+        {
+            for (int j2 = 0; j2 < allocation.GetLength(1); j2++)
+            {
+                Console.Write(allocation[i2, j2] + " ");
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine("Общая стоимость: " + totalCost);
     }
 
     static void Main()
@@ -82,18 +101,21 @@ class TransportProblem
         Console.Write("Введите количество потребителей: ");
         int consumers = int.Parse(Console.ReadLine());
 
-        int[] supply = new int[suppliers];  // Запасы поставщиков
-        int[] demand = new int[consumers];  // Потребности потребителей
+        int[] supply = new int[suppliers];  // Поставки
+        int[] demand = new int[consumers];  // Спрос
         int[,] cost = new int[suppliers, consumers]; // Матрица тарифов
 
+        // Ввод объемов поставок
         Console.WriteLine("Введите объемы поставок:");
         for (int i = 0; i < suppliers; i++)
             supply[i] = int.Parse(Console.ReadLine());
 
+        // Ввод объемов спроса
         Console.WriteLine("Введите объемы спроса:");
         for (int j = 0; j < consumers; j++)
             demand[j] = int.Parse(Console.ReadLine());
 
+        // Ввод тарифного плана
         Console.WriteLine("Введите тарифный план:");
         for (int i = 0; i < suppliers; i++)
         {
@@ -105,33 +127,9 @@ class TransportProblem
         }
 
         // Решение методом северо-западного угла
-        (int[,], int) result = NorthWestCornerMethod((int[])supply.Clone(), (int[])demand.Clone(), cost);
-        int[,] allocationNW = result.Item1;  // Матрица распределения
-        int totalCostNW = result.Item2;     // Общая стоимость перевозки
-        Console.WriteLine("Метод северо-западного угла:");
-        for (int i = 0; i < allocationNW.GetLength(0); i++)
-        {
-            for (int j = 0; j < allocationNW.GetLength(1); j++)
-            {
-                Console.Write(allocationNW[i, j] + " ");
-            }
-            Console.WriteLine();
-        }
-        Console.WriteLine("Общая стоимость (Метод северо-западного угла): " + totalCostNW);
+        NorthWestCornerMethod((int[])supply.Clone(), (int[])demand.Clone(), cost);
 
         // Решение методом минимального элемента
-        (int[,], int) result2 = MinElementMethod((int[])supply.Clone(), (int[])demand.Clone(), cost);
-        int[,] allocationMin = result2.Item1;  // Матрица распределения
-        int totalCostMin = result2.Item2;     // Общая стоимость перевозки
-        Console.WriteLine("Метод минимального элемента:");
-        for (int i = 0; i < allocationMin.GetLength(0); i++)
-        {
-            for (int j = 0; j < allocationMin.GetLength(1); j++)
-            {
-                Console.Write(allocationMin[i, j] + " ");
-            }
-            Console.WriteLine();
-        }
-        Console.WriteLine("Общая стоимость (Метод минимального элемента): " + totalCostMin);
+        MinElementMethod((int[])supply.Clone(), (int[])demand.Clone(), cost);
     }
 }

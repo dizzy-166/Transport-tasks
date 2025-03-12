@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("metodi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55499f5d5543ddd7407fa05384d4bead37040342")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+461f05f830bc12ae9ddef4b2fd9333f69d4bd274")]
 [assembly: System.Reflection.AssemblyProductAttribute("metodi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("metodi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
